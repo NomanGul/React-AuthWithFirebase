@@ -3,4 +3,6 @@ const config = {
   
 };
 
-export default config;
+const fb = firebase.initializeApp(config);
+
+export default fb;
