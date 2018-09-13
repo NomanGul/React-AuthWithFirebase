@@ -1,42 +1,32 @@
 import React, { Component } from "react";
+import fb from "./config/firebase.config";
 import "./App.css";
+import Home from "./Home";
+import AuthForm from "./AuthForm";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      user: {}
+    };
+
+    this.authListener = this.authListener.bind(this);
+  }
+
+  componentDidMount() {
+    this.authListener();
+  }
+
+  authListener() {
+    fb.auth().onAuthStateChanged(user => {
+      user ? this.setState({ user }) : this.setState({ user: null });
+    });
+  }
+
   render() {
-    return (
-      <div className="container">
-        <form className="mt-5 col-md-5">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input
-              type="email"
-              class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              placeholder="Enter email"
-            />
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="exampleInputPassword1"
-              placeholder="Password"
-            />
-            <small id="emailHelp" class="form-text text-muted">
-              We'll never share your password with anyone else.
-            </small>
-          </div>
-          <button type="submit" class="btn btn-primary mr-5">
-            LogIn
-          </button>
-          <button type="submit" class="btn btn-primary">
-            SignUp
-          </button>
-        </form>
-      </div>
-    );
+    const { user } = this.state;
+    return <div className="container">{user ? <Home /> : <AuthForm />}</div>;
   }
 }
 
