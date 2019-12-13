@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://nomangul.github.io/React-AuthWithFirebase",
   "dependencies": {
-    "firebase": "^5.4.2",
+    "firebase": "^7.6.0",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-scripts": "1.1.5"
